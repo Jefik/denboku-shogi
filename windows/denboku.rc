@@ -1,1 +1,25 @@
+#include <winver.h>
 1 ICON "denboku.ico"
+1 VERSIONINFO
+FILEVERSION VERSION_NUMBERS
+PRODUCTVERSION VERSION_NUMBERS
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904B0"
+    BEGIN
+      VALUE "CompanyName", "Jefik"
+      VALUE "FileDescription", L"Denboku Sh\x014Dgi"
+      VALUE "FileVersion", VERSION_TEXT
+      VALUE "LegalCopyright", "GPLv3"
+      VALUE "ProductName", L"Denboku Sh\x014Dgi"
+      VALUE "ProductVersion", VERSION_TEXT
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1200
+  END
+END

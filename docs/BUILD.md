@@ -21,7 +21,7 @@ Each step prints how long it took. At the end the script says which platforms it
 
 The program builds an object per source file, so `make -j` compiles them side by side and a change rebuilds only what it touches.
 
-About shows the version, from the commit's tag (`v0.9.0` → `0.9.0`, `DENBOKU_VERSION`; none between releases), and the build number, the UTC date and time of the build as `YYYYMMDD.HHMM` (`DENBOKU_BUILD`); `build.sh` prints both and gives every platform the same ones. Android's `versionCode` is major × 10000 + minor × 100 + patch.
+About shows the version, from the commit's tag (`v0.9.0` → `0.9.0`, `DENBOKU_VERSION`; none between releases), and the build number, `YYYYMMDD.HHMM` in UTC (`DENBOKU_BUILD`): the tagged commit's time on a tagged commit, so the Windows build on GitHub gets the same one, else the time of the build; `build.sh` prints both and gives every platform the same ones. The Windows exes carry the version in their file properties too. Android's `versionCode` is major × 10000 + minor × 100 + patch.
 
 Third-party sources built here are git submodules in `third_party/` (curl, mbed TLS, gdk-pixbuf), pinned to a release tag: `git submodule update --init --recursive --depth 1` after cloning.
 
@@ -29,9 +29,9 @@ The desktop and Kindle steps need the inputs in `$INV` (Kindle sysroot, Windows 
 
 | Input                                                                         | Command                                                                                         | Used by                         |
 | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------- |
-| Fairy-Stockfish for Kindle, Linux (x86_64, ARM64) and Windows                 | `tools/build-engine.sh <Fairy-Stockfish source> $INV/fsf-build-shogi` | all desktop and Kindle packages |
+| Fairy-Stockfish for Kindle, Linux (x86_64, ARM64) and Windows, at the commit `FSF_COMMIT` in the script | `tools/build-engine.sh <Fairy-Stockfish source> $INV/fsf-build-shogi [armv7 x86_64 arm64 windows]` | all desktop and Kindle packages |
 | Kindle sysroot (libraries copied from a Kindle over SSH, headers from Debian) | `tools/sysroot.sh $INV/sysroot [kindle address]`                      | Kindle                          |
-| Windows sysroot (MSYS2 GTK 2)                                                 | `tools/windows-sysroot.py $INV/win`                                   | Windows                         |
+| Windows sysroot (MSYS2 GTK 2), pinned in `tools/windows-packages.lock` (`--update` moves to MSYS2's current ones) | `tools/windows-sysroot.py $INV/win`                                   | Windows                         |
 | Termux's GTK 2 packages, pinned in `tools/android-packages.lock`              | `tools/android-sysroot.py` (run by `build-android.sh`)                                          | Android                         |
 | appimagetool and its runtime                                                  | download into `$INV/appimage/`                                        | AppImage                        |
 
@@ -88,6 +88,10 @@ tools/build-windows.sh ../denboku-shogi-investigation/win ../denboku-shogi-inves
 Uses the Windows sysroot and the mingw-w64 Docker image; output is `dist/denboku-windows/` and `dist/denboku-windows.zip`. The zip holds `Denboku.exe`, `bin/`, `etc/` and the data folders at its root. gdk-pixbuf is not MSYS2's but `tools/build-gdkpixbuf-windows.sh`'s (the submodule `third_party/gdk-pixbuf`, the same version, with only the PNG loader, built in), made once into `../denboku-shogi-investigation/win-pixbuf/`: MSYS2's JPEG and TIFF loaders brought nine more DLLs (4.7 MB).
 
 On Windows itself, `tools\build-windows.ps1` (PowerShell) downloads MSYS2 into `build\msys64` and runs `tools/build-windows-native.sh` there: the same package from MSYS2's compiler, its GTK 2 (no longer in its database: `pacman -U` takes the last package from the mirror), the engine at the same commit and gdk-pixbuf with only PNG (`build-gdkpixbuf-windows.sh` runs meson natively in MSYS2). Both ways bundle with `tools/package-windows.sh`.
+
+### Signed zip and MSIX
+
+The release's Windows packages are built on GitHub, since the SignPath Foundation signs only what a GitHub-hosted runner built from the repo: `.github/workflows/windows.yml` runs on each `v*` tag (or by hand) and builds everything from scratch (the sysroot from the lock, the engine at `FSF_COMMIT`, gdk-pixbuf from the submodule), then the zip and, with `tools/package-msix.sh` (the folder plus `windows/AppxManifest.xml` and the logos from `data/art/icon.svg`) and `makeappx` on a Windows runner, `Denboku-x86_64.msix`. Only our own `Denboku.exe` and `bin/denboku.exe` are signed, inside both, and the MSIX itself (`windows/signpath-artifact.xml`, the artifact configuration pasted into SignPath). The repository's settings hold the secret `SIGNPATH_API_TOKEN` and the variables `SIGNPATH_ORGANIZATION_ID`, `SIGNPATH_PROJECT_SLUG`, `SIGNPATH_SIGNING_POLICY_SLUG` and `MSIX_PUBLISHER`, the certificate's subject exactly (the MSIX's publisher must match it). Without them the run leaves the unsigned packages as the artifact `windows-unsigned`, whose MSIX has a test publisher and installs with `Add-AppxPackage -AllowUnsigned Denboku-x86_64.msix` in an administrator PowerShell, for testing. Signed, the artifact is `windows-signed`: `gh run download <run> -n windows-signed -D dist` before `tools/release.sh` (and `echo <build> > dist/denboku-windows.zip.build`, the run's build number). Installed from the MSIX, the game only tells of a new version: Windows installs the new MSIX over it, and its settings stay.
 
 ## Android
 

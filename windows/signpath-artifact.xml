@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The SignPath artifact configuration (kept here, pasted into the SignPath project): the artifact of
+     .github/workflows/windows.yml. Only our own exes are signed, not MSYS2's DLLs or the engine. -->
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <zip-file>
+    <zip-file path="denboku-windows.zip">
+      <pe-file path="Denboku.exe" product-name="Denboku Shōgi">
+        <authenticode-sign/>
+      </pe-file>
+      <pe-file path="bin/denboku.exe" product-name="Denboku Shōgi">
+        <authenticode-sign/>
+      </pe-file>
+    </zip-file>
+    <msix-file path="Denboku-x86_64.msix">
+      <pe-file path="Denboku.exe" product-name="Denboku Shōgi">
+        <authenticode-sign/>
+      </pe-file>
+      <pe-file path="bin/denboku.exe" product-name="Denboku Shōgi">
+        <authenticode-sign/>
+      </pe-file>
+      <authenticode-sign hash-algorithm="sha256"/>
+    </msix-file>
+  </zip-file>
+</artifact-configuration>

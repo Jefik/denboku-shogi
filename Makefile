@@ -53,10 +53,11 @@ $(BUILD)/obj/%.o: %.c $(HDR)
 $(BUILD)/denboku: $(OBJ) $(RES)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) $(RES) $(LDFLAGS) $(shell $(PKG_CONFIG) --libs $(PKGS)) $(XLIBS) -lm
 
-# The .exe icon.
-$(BUILD)/icon.o: windows/denboku.rc windows/denboku.ico
+# The .exe icon and version (1.2.3 → 1,2,3,0; 0,0,0,0 between releases), shared by Denboku.exe and bin/denboku.exe.
+WIN_VERSION = $(shell echo "$(DENBOKU_VERSION)" | sed 's/[^0-9.].*//' | awk -F. '{printf "%d,%d,%d,0", $$1, $$2, $$3}')
+$(BUILD)/icon.o: windows/denboku.rc windows/denboku.ico $(STAMP)
 	@mkdir -p $(BUILD)
-	$(WINDRES) -I windows $< -O coff -o $@
+	$(WINDRES) -I windows -DVERSION_NUMBERS=$(WIN_VERSION) -DVERSION_TEXT='\"$(or $(DENBOKU_VERSION),$(DENBOKU_BUILD))\"' $< -O coff -o $@
 
 $(BUILD)/test_%: tests/test_%.c $(RULES) $(HDR)
 	@mkdir -p $(BUILD)

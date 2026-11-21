@@ -1,8 +1,8 @@
 /* Updates: at each start the latest release's signed manifest (update.c checks it); a later build for
  * this platform is downloaded, checked and swapped in where the game can replace its own files (the
  * Kindle, the Linux folder, the AppImage; the Windows folder, unpacked here and swapped by Denboku.exe at
- * the next start), or handed to the system's installer (Android, which asks the player first). The Flatpak
- * leaves updates to Flatpak. Where from and who signs: src/<game>/release.h. */
+ * the next start), or handed to the system's installer (Android, which asks the player first). The MSIX
+ * only tells; the Flatpak leaves updates to Flatpak. Where from and who signs: src/<game>/release.h. */
 
 #include "app.h"
 #include "http.h"
@@ -39,6 +39,16 @@ G_GNUC_UNUSED static gboolean writable(const char *dir)
     return ok;
 }
 
+#ifdef G_OS_WIN32
+/* Installed from the MSIX, which only Windows can update (GetCurrentPackageFullName is Windows 8's). */
+static gboolean packaged(void)
+{
+    LONG (WINAPI *full_name)(UINT32 *, PWSTR) = (void *) GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "GetCurrentPackageFullName");
+    UINT32 n = 0;
+    return full_name && full_name(&n, NULL) != 15700L; /* APPMODEL_ERROR_NO_PACKAGE */
+}
+#endif
+
 /* The manifest's name for this build, and how it can update itself; NULL where something else updates it. */
 static const char *platform(Way *way)
 {
@@ -46,9 +56,10 @@ static const char *platform(Way *way)
     if (g_getenv("FLATPAK_ID"))
         return NULL;
 #ifdef G_OS_WIN32
-    /* The portable folder, if it can be written: Denboku.exe swaps the files before it starts the game. */
+    /* The portable folder, if it can be written: Denboku.exe swaps the files before it starts the game.
+     * The MSIX only tells: the player installs the new one. */
     char *launcher = g_build_filename(app.base, "Denboku.exe", NULL);
-    if (g_file_test(launcher, G_FILE_TEST_EXISTS) && writable(app.base))
+    if (!packaged() && g_file_test(launcher, G_FILE_TEST_EXISTS) && writable(app.base))
         *way = WAY_ZIP;
     g_free(launcher);
     return "windows-x86_64";

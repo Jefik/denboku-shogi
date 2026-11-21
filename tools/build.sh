@@ -69,10 +69,11 @@ step() { # step <name> <command...>: runs quietly, shows the log on failure, and
     else echo "$name: ok ($((SECONDS - t)) s)"; fi
   else echo "$name: FAILED"; tail -40 "$LOG"; exit 1; fi
 }
-# One build number (About) for every platform: now, UTC. The binaries built here are made again for it.
-export DENBOKU_BUILD=${DENBOKU_BUILD:-$(date -u +%Y%m%d.%H%M)}
 # The version from the commit's tag (v0.9.0), empty between releases.
 export DENBOKU_VERSION=${DENBOKU_VERSION-$(git describe --tags --exact-match --match 'v[0-9]*' 2>/dev/null | sed 's/^v//' || true)}
+# One build number (About) for every platform, UTC: the tagged commit's time, which the Windows build on
+# GitHub (.github/workflows/windows.yml) gets too, else now. The binaries built here are made again for it.
+export DENBOKU_BUILD=${DENBOKU_BUILD:-$(if [ -n "$DENBOKU_VERSION" ]; then TZ=UTC git log -1 --format=%cd --date=format-local:%Y%m%d.%H%M; else date -u +%Y%m%d.%H%M; fi)}
 rm -f build/kindle/denboku build/android-*/denboku
 echo "build $DENBOKU_BUILD${DENBOKU_VERSION:+, version $DENBOKU_VERSION}"
 # Each package's build beside it (dist/<file>.build), which tools/release.sh checks.

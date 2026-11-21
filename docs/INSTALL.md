@@ -23,6 +23,8 @@ Settings, the game in progress and the history are kept in `/mnt/us/extensions/d
 
 Unpack `denboku-windows.zip` into a folder of its own (its files are at the zip's root) and run `Denboku.exe`. Keep the `bin/`, `etc/`, `art/`, `fonts/`, `styles/`, `sounds/`, `problems/` and `lessons/` folders next to it; the engine and the GTK DLLs are in `bin/`. Windows on ARM runs it through x64 emulation; there is no native ARM64 build.
 
+Or open `Denboku-x86_64.msix` (signed, from the releases that have it) to install it like any Windows app, with a Start menu entry and an uninstaller; a newer MSIX installs over it.
+
 ## Linux x86_64
 
 - **AppImage**: `chmod +x Denboku-x86_64.AppImage && ./Denboku-x86_64.AppImage`.

@@ -1,0 +1,89 @@
+# The Windows zip and MSIX, built from scratch on GitHub's runners and signed by the SignPath Foundation
+# (docs/BUILD.md, "Windows signing"). Without the SignPath variables they stay unsigned, as an artifact.
+name: Windows
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Version and build number
+        # The build number is the commit's time, as tools/build.sh gives a tagged build.
+        run: |
+          {
+            echo "DENBOKU_VERSION=$(git describe --tags --exact-match --match 'v[0-9]*' 2>/dev/null | sed 's/^v//' || true)"
+            echo "DENBOKU_BUILD=$(TZ=UTC git log -1 --format=%cd --date=format-local:%Y%m%d.%H%M)"
+            echo "INV=$RUNNER_TEMP/inv"
+          } >>"$GITHUB_ENV"
+      - run: git submodule update --init --depth 1 third_party/gdk-pixbuf
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq zstd librsvg2-bin
+      - name: Sysroot
+        run: python3 tools/windows-sysroot.py "$INV/win" >/dev/null
+      - name: Engine
+        run: |
+          git clone -q https://github.com/fairy-stockfish/Fairy-Stockfish.git "$INV/fsf-src"
+          git -C "$INV/fsf-src" checkout -q "$(sed -n 's/^FSF_COMMIT=//p' tools/build-engine.sh)"
+          tools/build-engine.sh "$INV/fsf-src" "$INV/fsf" windows
+      - name: Zip
+        run: tools/build-windows.sh "$INV/win" "$INV/fsf/fairy-stockfish-x86_64.exe" dist
+      - name: MSIX folder
+        # The publisher must be the signing certificate's subject; the test one lets an unsigned package
+        # install with Add-AppxPackage -AllowUnsigned.
+        run: tools/package-msix.sh dist/denboku-windows dist/msix "${DENBOKU_VERSION:-0.0.0}" "$PUBLISHER"
+        env:
+          PUBLISHER: ${{ vars.MSIX_PUBLISHER || 'CN=Jefik, OID.2.25.311729368913984317654407730594956997722=1' }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: |
+            dist/denboku-windows.zip
+            dist/msix/
+          retention-days: 1
+
+  package:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-build
+          path: in
+      - name: MSIX
+        shell: pwsh
+        run: |
+          $makeappx = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\makeappx.exe" | Sort-Object FullName | Select-Object -Last 1
+          New-Item -ItemType Directory out | Out-Null
+          & $makeappx.FullName pack /o /d in\msix /p out\Denboku-x86_64.msix
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          Copy-Item in\denboku-windows.zip out\
+      - id: unsigned
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-unsigned
+          path: out/
+      - if: vars.SIGNPATH_ORGANIZATION_ID != ''
+        uses: signpath/github-action-submit-signing-request@v3
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
+          github-artifact-id: ${{ steps.unsigned.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed
+      - if: vars.SIGNPATH_ORGANIZATION_ID != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-signed
+          path: signed/
