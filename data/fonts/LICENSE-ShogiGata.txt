@@ -1,0 +1,7 @@
+ShogiGata.otf is traced from gatasosyo.ttf (があた草書, Gata Sōsho) by があた (gata), cut to the piece characters and with its strokes made bolder.
+
+Terms, from the author's page (https://booth.pm/ja/items/318557):
+
+このフォントは商用問わず自由に使用・改造・再配布できますが全て無保証とします。
+
+(This font may be freely used, modified and redistributed, commercially or not, but it all comes without any warranty.)

@@ -1,0 +1,38 @@
+# The tutorial's lessons for Tori shogi (7×7; format: "Lessons" in docs/CODE.md). The swallow is S,
+# the falcon F, the crane C, the pheasant P, the phoenix K and the quails L and R.
+
+chapter Basics
+
+lesson tori Tori shōgi
+about Birds on 7×7
+step The crane
+text Tori shōgi is played with birds on a 7×7 board. The phoenix is the king; the crane steps one square in any direction but sideways. Collect the stars with the crane.
+position 7/7/7/3C3/7/7/7 b - 1
+goal stars 4c 3d
+limit 2
+solution 4d4c 4c3d
+step The swallow
+text The swallow is the pawn: one square forward. In the last two ranks it must promote, into a goose. Move it into the zone.
+position 7/7/3S3/7/7/7/7 b - 1
+goal move 4c4b+
+step The falcon
+text The falcon steps one square in any direction but straight back. Collect the stars with it.
+position 7/7/7/3F3/7/7/7 b - 1
+goal stars 3c 2c
+limit 2
+solution 4d3c 3c2c
+step The pheasant
+text The pheasant jumps two squares straight forward, over anything in between, or steps one square diagonally back. Collect the stars.
+position 7/7/7/7/7/3P3/7 b - 1
+goal stars 4d 4b
+limit 2
+solution 4f4d 4d4b
+step Two swallows a file
+text A file may hold two of your swallows, never three, and a swallow may not be dropped to give mate. Every file here but the 4th already has two of yours: drop the swallow in hand on the 4th file.
+position 7/7/7/SSS1SSS/SSS1SSS/7/7 b S 1
+goal move S*4b/S*4c/S*4d/S*4e/S*4f/S*4g
+step Catch the phoenix
+text Take the phoenix with the crane.
+position 7/3k3/3C3/7/7/7/7 b - 1
+goal capture
+solution 4c4b

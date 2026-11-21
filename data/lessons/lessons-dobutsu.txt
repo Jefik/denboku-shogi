@@ -1,0 +1,28 @@
+# The tutorial's lessons for Dōbutsu (3×4; format: "Lessons" in docs/CODE.md). The giraffe is R, the
+# elephant B, the lion K and the chick P.
+
+chapter Basics
+
+lesson dobutsu Dōbutsu
+about Animals on 3×4
+step Giraffe and elephant
+text Dōbutsu is shōgi for children on a 3×4 board. The giraffe steps one square straight, the elephant one square diagonally. Collect the stars with the elephant.
+position 3/3/1B1/3 b - 1
+goal stars 1b 2a
+limit 2
+solution 2c1b 1b2a
+step Catch the lion
+text There is no check here: the lion can be captured, and catching it wins. Take it with the giraffe.
+position 3/1k1/1R1/3 b - 1
+goal capture
+solution 2c2b
+step Try
+text Your lion also wins by reaching the far rank where it cannot be taken (the try). Walk it there.
+position 3/3/1K1/3 b - 1
+goal stars 2a
+limit 2
+solution 2c2b 2b2a
+step The hen
+text The chick steps one square forward; on the far rank it becomes a hen, which moves like a gold. A captured hen goes back to the hand as a chick.
+position 3/2P/3/3 b - 1
+goal move 1b1a+

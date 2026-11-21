@@ -1,0 +1,31 @@
+# The tutorial's lessons for Kyotoshogi (5×5; format: "Lessons" in docs/CODE.md). Every move of a
+# piece turns it over, so every move is written with +.
+
+chapter Basics
+
+lesson kyoto Kyotoshōgi
+about Every move turns the piece over
+step Silver and bishop
+text In Kyotoshōgi every piece but the king turns over each time it moves: silver and bishop, gold and knight, pawn and rook, lance and tokin share a piece. Move the silver to the star: it lands as a bishop. Then move the bishop to the next star.
+position 5/5/2S2/5/5 b - 1
+goal stars 3b 5d
+limit 2
+solution 3c3b+ 3b5d+
+step Pawn and rook
+text The pawn steps forward and becomes a rook; the rook moves and becomes a pawn again. Collect the stars.
+position 5/5/5/2P2/5 b - 1
+goal stars 3c 1c
+limit 2
+solution 3d3c+ 3c1c+
+step Gold and knight
+text The gold moves and becomes a knight; the knight jumps two squares forward and one to the side, and becomes a gold. Collect the stars.
+position 5/5/5/2G2/5 b - 1
+goal stars 3c 2a
+limit 2
+solution 3d3c+ 3c2a+
+step Tokin and lance
+text The tokin moves like a gold and becomes a lance; the lance slides forward and becomes a tokin. Collect the stars.
+position 5/5/5/5/2+L2 b - 1
+goal stars 3d 3a
+limit 2
+solution 3e3d+ 3d3a+

@@ -1,0 +1,21 @@
+# The tutorial's lessons for Euroshogi (8×8; format: "Lessons" in docs/CODE.md).
+
+chapter Basics
+
+lesson euroshogi Euroshōgi
+about Shōgi on 8×8, with a knight that steps aside
+step The knight
+text Euroshōgi is shōgi on an 8×8 board. Its knight jumps as in shōgi, two squares forward and one to the side, and it can also step one square sideways. Collect the stars with it.
+position 8/8/8/8/8/8/3N4/8 b - 1
+goal stars 4g 3e
+limit 2
+solution 5g4g 4g3e
+step Three ranks, no choice
+text The promotion zone is the last three ranks, and a piece that moves into, within or out of it always promotes. Move the pawn into the zone.
+position 8/8/8/4P3/8/8/8/8 b - 1
+goal move 4d4c+
+step Mate with a knight
+text A knight can be dropped anywhere, since it can always step sideways. Mate the king with a knight drop: the bishop covers its way out.
+position 6gk/7p/8/4B3/8/8/8/8 b N 1
+goal mate
+solution N*2c

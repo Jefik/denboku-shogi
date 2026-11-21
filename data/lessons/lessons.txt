@@ -1,0 +1,517 @@
+# The tutorial's lessons for standard shogi (format: "Lessons" in docs/CODE.md). Squares and moves as
+# USI writes them (5d, 7g7f, S*5e); every step's solution is played by make test.
+
+chapter Basics
+
+lesson king The board and the king
+about Your side, the goal, the king's step
+step The king
+text Shōgi is played on a 9×9 board. Your pieces point up the board and the other side's point down; you win by catching the other king.
+text The king steps one square in any direction. Walk it to every star.
+position 9/9/9/9/9/9/9/9/4K4 b - 1
+goal stars 5h 4g 4f
+limit 3
+hint 5i5h
+solution 5i5h 5h4g 4g4f
+step Capturing
+text A piece captures by moving onto an enemy piece. Take both pawns with the king.
+position 9/9/4p4/5p3/4K4/9/9/9/9 b - 1
+goal capture
+limit 2
+solution 5e4d 4d5c
+
+lesson gold The gold
+about One square, but not diagonally back
+step Gold steps
+text The gold steps one square forward, sideways, straight back or diagonally forward: never diagonally back.
+position 9/9/9/9/9/4G4/9/9/9 b - 1
+goal stars 5e 4d 3d
+limit 3
+solution 5f5e 5e4d 4d3d
+step Going round
+text The star is diagonally behind the gold, where it cannot step. Get there in two moves.
+position 9/9/9/9/9/4G4/9/9/9 b - 1
+goal stars 4g
+limit 2
+solution 5f4f 4f4g
+
+lesson silver The silver
+about One square forward or diagonally
+step Silver steps
+text The silver steps one square forward or diagonally, forward and back: never sideways or straight back.
+position 9/9/9/9/9/4S4/9/9/9 b - 1
+goal stars 5e 6d 7e
+limit 3
+hint 5f5e
+solution 5f5e 5e6d 6d7e
+step Going round
+text The star is beside the silver, where it cannot step. Get there in two moves.
+position 9/9/9/9/9/4S4/9/9/9 b - 1
+goal stars 6f
+limit 2
+solution 5f6g 6g6f
+
+lesson knight The knight
+about Two forward and one aside, jumping
+step Knight jumps
+text The knight jumps two squares forward and one to the side, over anything in between. It is the only piece that jumps, and it never goes back.
+position 9/9/9/9/9/9/9/3PPP3/4N4 b - 1
+goal stars 4g 5e 4c
+limit 3
+solution 5i4g 4g5e 5e4c
+
+lesson lance The lance
+about Any distance straight forward
+step Lance runs
+text The lance goes any number of squares straight forward, never back or sideways.
+position 9/9/9/9/9/9/9/9/8L b - 1
+goal stars 1f 1c
+limit 2
+solution 1i1f 1f1c
+step Blocked
+text A piece in the way stops it: the lance can take the first enemy piece on its file, not the one behind. Take both, one at a time.
+position 9/8g/9/8p/9/9/9/9/8L b - 1
+goal capture
+limit 2
+solution 1i1d 1d1b
+
+lesson bishop The bishop
+about Any distance diagonally
+step Bishop runs
+text The bishop goes any number of squares diagonally, as long as nothing is in the way.
+position 9/9/9/9/9/9/9/1B7/9 b - 1
+goal stars 3c 6f
+limit 2
+solution 8h3c 3c6f
+step Bishop captures
+text Take both pawns in two moves.
+position 9/9/2p6/9/4B4/9/6p2/9/9 b - 1
+goal capture
+limit 2
+solution 5e3g 3g7c
+
+lesson rook The rook
+about Any distance straight
+step Rook runs
+text The rook goes any number of squares forward, back or sideways. With the bishop it is one of the two strongest pieces.
+position 9/9/9/9/9/9/9/7R1/9 b - 1
+goal stars 2d 7d
+limit 2
+solution 2h2d 2d7d
+step Rook captures
+text Take both pieces in two moves.
+position 4g4/9/9/9/4p2R1/9/9/9/9 b - 1
+goal capture
+limit 2
+solution 2e5e 5e5a
+
+lesson pawn The pawn
+about One square forward
+step Pawn steps
+text The pawn steps one square straight forward, and it captures the same way: straight ahead, not diagonally as in chess.
+position 9/9/9/9/9/9/4P4/9/9 b - 1
+goal stars 5f 5e
+limit 2
+solution 5g5f 5f5e
+step Pawn captures
+text Take the pawn.
+position 9/9/9/9/2p6/9/2P6/9/9 b - 1
+goal capture
+limit 2
+solution 7g7f 7f7e
+
+chapter Promotion and drops
+
+lesson promotion Promotion
+about The last three ranks
+step The zone
+text The three ranks farthest from you are the promotion zone. A piece that moves into it, inside it or out of it may turn over and promote. Move the pawn into the zone and promote it.
+position 9/9/9/6P2/9/9/9/9/9 b - 1
+goal move 3d3c+
+step The tokin
+text A promoted pawn (と, tokin) moves like a gold. Collect the stars with it.
+position 9/9/6+P2/9/9/9/9/9/9 b - 1
+goal stars 4b 5b
+limit 2
+solution 3c4b 4b5b
+step Dragon
+text Promoted, the rook becomes a dragon and the bishop a horse: they keep their moves and add the king's step. Move the rook into the zone and promote it.
+position 9/9/9/9/9/9/9/7R1/9 b - 1
+goal move 2h2c+/2h2b+/2h2a+
+step Must promote
+text A pawn or lance on the last rank, or a knight on the last two, could never move again, so there it must promote.
+position 9/8P/9/9/9/9/9/9/9 b - 1
+goal move 1b1a+
+
+lesson drops Captures and drops
+about Captured pieces are yours to drop
+step Into your hand
+text A piece you capture goes to your hand, unpromoted. Capture the silver.
+position 9/9/4s4/9/9/9/9/4R4/9 b - 1
+goal capture
+solution 5h5c
+step Drop it
+text Instead of moving, you may drop a piece from your hand on any empty square. Drop the silver on the star.
+position 9/9/9/9/9/9/9/9/9 b S 1
+goal stars 5e
+limit 1
+solution S*5e
+step Two pawns
+text You may not have two unpromoted pawns of yours on one file (二歩). Drop the pawn on the star, away from your other pawn.
+position 9/9/9/9/9/9/2P6/9/9 b P 1
+goal stars 3e
+limit 1
+solution P*3e
+step Room to move
+text A piece may not be dropped where it could never move: no pawn or lance on the last rank, no knight on the last two. Drop the knight on the star.
+position 9/9/9/9/9/9/9/9/9 b N 1
+goal stars 3c
+limit 1
+solution N*3c
+
+chapter Check and mate
+
+lesson check Check
+about When the king is attacked
+step Give check
+text A move that attacks the king is a check (王手). Give check with the rook from your hand.
+position 4k4/9/9/9/9/9/9/9/9 b R 1
+goal check
+solution R*5e
+step Out of check
+text The rook attacks your king: it is in check. You must answer at once by moving the king out of the line, by blocking with a piece (a drop too) or by capturing the attacker.
+position 4r4/9/9/9/9/9/9/9/4K4 b G 1
+goal any
+solution 5i4h
+
+lesson mate Checkmate
+about Check with no way out wins
+step Gold on the head
+text Checkmate is a check the king cannot escape: that wins the game. A gold dropped on the king's head, guarded by the pawn, is the most common mate (頭金).
+position 4k4/9/4P4/9/9/9/9/9/9 b G 1
+goal mate
+hint G*5b
+solution G*5b
+step Back rank
+text The king's own pawns block its way out. Mate it with the rook.
+position 4k4/3ppp3/9/9/9/9/9/9/9 b R 1
+goal mate
+solution R*1a
+step Not with a dropped pawn
+text Mating with a pawn dropped from the hand is not allowed (打ち歩詰め); a pawn already on the board may mate by moving. Find the mate with the gold.
+position 8k/6S2/7G1/9/9/9/9/9/9 b GP 1
+goal mate
+solution G*2b
+
+lesson matepatterns Mating patterns
+about Golds at the side and the tail, and a sacrifice
+step Belly gold
+text A gold dropped beside the king (腹金, the belly gold) mates when the squares in front of it are guarded. The silver guards the gold and the pawn takes away 1c.
+position 9/8k/6S2/8P/9/9/9/9/9 b G 1
+goal mate
+hint G*2b
+solution G*2b
+step Tail gold
+text A gold dropped behind the king (尻金, the tail gold), on the edge, mates a king the other pieces have boxed in: here the dragon and the bishop.
+position 9/6k2/4B3+R/9/9/9/9/9/9 b G 1
+goal mate
+hint G*3a
+solution G*3a
+step Lance sacrifice
+text A piece given away (捨て駒) can close the king's way out. Drop the lance on 1b: the silver must take it, and then stands where its king would flee. Mate in 2.
+position 7sk/9/4g3S/5R3/9/9/9/9/9 b GL 1
+goal mate 2
+hint L*1b
+solution L*1b G*2b
+step Mate in three
+text Longer mates are made of these patterns. Give a gold away to draw the king out to 2c, close in on it with the silver, and finish with the other gold. Every move checks.
+position 8l/5+P1nk/5S3/9/7G1/9/9/9/K8 b 2G2r2bg3s3n3l17p 1
+goal mate 3
+hint G*2c
+solution G*2c 4c3b G*2c
+
+lesson castlemates Mating the castles
+about Where each castle is weak
+step Against the Mino
+text The Mino's king fears a knight: one dropped on 7d checks it over the silver, and the bishop on its diagonal and the rook on the first rank leave it nowhere to go. Mate in 2: every move must give check, and the other side defends.
+position ln1g4R/1ks1g4/pppp5/3B5/9/9/9/9/9 b GN 1
+goal mate 2
+hint N*7d
+solution N*7d G*8b
+step Against the Silver crown
+text The Silver crown is strong above and thin below. Drop the silver behind the king, then let the dragon finish. Mate in 2.
+position ln7/1kg+R5/pspg5/1p1p5/9/4+B4/9/9/9 b SN 1
+goal mate 2
+hint S*7a
+solution S*7a 6b7b
+
+lesson brink Brinkmate
+about A threat with no defense
+step The silver ahead
+text When no check mates, a quiet move can leave the king no defense (必至): whatever the other side plays, the next move mates. With the rook holding the second rank, drop the silver two squares in front of the king, then mate.
+position 4k4/7R1/9/9/9/9/9/9/9 b S 1
+goal brink
+hint S*5c
+solution S*5c 2b6b+
+step Two golds
+text The king near the corner, a gold on its rank: put the second gold where the king cannot get past it, then mate with the third.
+position 4G2k1/9/9/9/9/9/9/9/9 b GG 1
+goal brink
+hint G*2c
+solution G*2c G*3b
+
+lesson anagumabreak Breaking the Bear in the hole
+about Its guards taken one by one
+step Tokin against the Anaguma
+text "Attack the Anaguma with a tokin" (穴熊はと金で): a tokin costs the other side nothing to take, and here it takes the knight the castle rests on. Take it; the gold must take back, and the king is open. Mate in 2.
+position 4+R1gnk/6+Psl/5+B1pp/9/9/9/9/9/9 b G 1
+goal mate 2
+hint 3b2a
+solution 3b2a 5a2a
+step Take the gold
+text With the horse on the long diagonal and the dragon on the first rank, take the gold quietly: it is not check, yet no defense is left (必至).
+position 5+Rgnk/7sl/7pp/9/9/3+B5/9/9/9 b N 1
+goal brink
+hint 4a3a
+solution 4a3a 6f3c
+
+chapter Notation
+
+lesson squares Squares and kanji
+about Finding a square and a piece by name
+step Files and ranks
+text A square is named by its file, a number counted from Sente's right (１ to ９), and its rank, a kanji numeral counted from the top (一 to 九). Tap ７六: file 7, rank 6.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal quiz 7f
+solution 7f
+step Another square
+text Tap ２八, where your rook starts.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal quiz 2h
+solution 2h
+step The pieces' kanji
+text Each piece is written with one kanji: 玉 king, 飛 rook, 角 bishop, 金 gold, 銀 silver, 桂 knight, 香 lance, 歩 pawn. Tap your 銀 on the right.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal quiz 3i
+solution 3i
+step Promoted pieces
+text A promoted piece has a name of its own: 龍 (a promoted rook), 馬 (a promoted bishop), と (a promoted pawn), and 成銀, 成桂, 成香, written with one kanji on the piece. Tap the 馬.
+position 9/9/9/2+B3+R2/9/4+P4/9/9/9 b - 1
+goal quiz 7d
+solution 7d
+
+lesson notation Reading moves
+about Japanese notation, as game records write it
+step The square and the piece
+text A move is written as the side (▲ Sente, △ Gote), the square it goes to and the piece. The file is a number and the rank a kanji numeral, both counted from Sente's top right: ７六 is file 7, rank 6 (7f). Play ▲７六歩, the pawn to 7f.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal move 7g7f
+step The same square
+text When a move goes where the last one went, 同 (the same) takes the place of the square. Gote's pawn has just taken on 2d (△同歩): answer ▲同飛, the rook taking it back.
+position lnsgkgsnl/1r5b1/p1ppppp1p/7p1/1p7/9/PPPPPPP1P/1B5R1/LNSGKGSNL b p 7
+goal move 2h2d
+step A drop
+text A piece from the hand is written like any move; 打 (drop) is added only when a piece on the board could reach the square too. Play ▲５五角, the bishop from your hand to 5e.
+position lnsgkg1nl/1r5s1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/7R1/LNSGKGSNL b Bb 5
+goal move B*5e
+step Promoting
+text 成 after the piece means it promotes, 不成 that it could but does not. Play ▲２三歩成.
+position 4k4/9/9/7P1/9/9/9/9/4K4 b - 1
+goal move 2d2c+
+step Not promoting
+text Now the silver goes to 2c without promoting: ▲２三銀不成.
+position 4k4/9/9/6S2/9/9/9/9/4K4 b - 1
+goal move 3d2c
+step Which one
+text When two pieces of a kind can reach the square, a word says which: 右 the one on the right, 左 the left (as the player sees them), 上 one moving up, 引 one moving back, 寄 one moving sideways. Both golds can go to 5h: play ▲５八金右.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal move 4i5h
+
+chapter Strategy
+
+lesson principles Principles
+about The king out of the center and away from the rook; speed at the end
+step 居玉は避けよ
+text A proverb says 居玉は避けよ: do not fight with the king on its starting square. Gote's rook has come to the center, aimed straight down at your king.
+text Step the king off the 5th file, to either side.
+position lnsgkgsnl/4r2b1/pppp1p1pp/4p1p2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL b - 7
+goal move 5i4h/5i6h
+solution 5i4h
+step 玉飛接近すべからず
+text Another says 玉飛接近すべからず: keep the king away from the rook, because the fighting starts where the rook is. Your rook stays home on 2h (Static Rook), so the king goes the other way.
+text Step the king to 6h.
+position lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 5
+goal move 5i6h
+solution 5i6h
+step Speed at the end
+text In the endgame speed counts for more than pieces (終盤は駒の損得より速度). The lance can take the rook, but there is a mate in one: play it instead.
+position 4k3r/9/4P4/9/9/9/9/9/K7L b G 1
+goal mate
+solution G*5b
+
+lesson mino Castle: Mino
+about Rook to the left, king to the right
+step Build the Mino
+text Before the fight, put your king in a castle (囲い), away from the rook, where the fighting starts. In a Ranging Rook game the rook goes to the left and the king walks right to 2h, with a silver on 3h and golds on 4i and 5h.
+text The other side waits. Move the rook to 6h, then build the castle.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal shape 9/9/9/9/9/9/9/3RG1SK1/5G3 b - 1
+limit 8
+hint 2h6h
+solution 2h6h 5i4h 4h3h 3h2h 3i3h 6i5h
+
+lesson minofamily Castle: the Mino family
+about Higher and stronger, and on the left
+step High Mino
+text The Mino grows with the game. From the Mino (本美濃), push the pawn on 4g and lift the gold from 5h to 4g: the High Mino (高美濃) guards more of the upper side. The other side waits.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B1RG1SK1/LNS2G1NL b - 1
+goal shape 9/9/9/9/9/5P3/5G3/6SK1/5G3 b - 1
+limit 3
+hint 4g4f
+solution 4g4f 5h4g
+step Silver crown
+text Push the pawn on 2g, bring the silver up to 2g and the gold from 4i to 3h: the Silver crown (銀冠) puts a silver over the king's head, the strongest of the family against an attack from above.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/5P3/PPPPPGPPP/1B1R2SK1/LNS2G1NL b - 1
+goal shape 9/9/9/9/9/5P1P1/5G1S1/6GK1/9 b - 1
+limit 4
+hint 2g2f
+solution 2g2f 3h2g 4i3h
+step Left Mino
+text With the rook kept on its file against a Ranging Rook, the Mino is built on the left (左美濃): the king on 8h, a silver on 7h and golds on 6i and 5h. Open the bishop's diagonal and move it to 7g first.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal shape 9/9/9/9/9/9/9/1KS1G4/3G5 b - 1
+limit 8
+hint 7g7f
+solution 7g7f 8h7g 5i6h 6h7h 7h8h 7i7h 4i5h
+
+lesson yagura Castle: Yagura
+about A fortress for Static Rook
+step Build the Yagura
+text With the rook kept on its file (Static Rook), the king usually goes left. The Yagura puts it on 8h behind a silver on 7g and golds on 7h and 6g; the bishop moves out of the way first.
+text The other side waits. Build it in at most 14 moves.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal shape 9/9/9/9/9/9/2SG5/1KG6/9 b - 1
+limit 14
+hint 7g7f
+solution 7g7f 7i6h 6h7g 6i7h 5i6i 4i5h 8h7i 6g6f 5h6g 7i6h 6i7i 7i8h
+
+lesson aiyagura Opening: Double Yagura
+about Both sides build the Yagura
+step 相矢倉
+text When both sides keep their rooks home, both often build the Yagura (相矢倉): silvers and golds climb in front of the king, the bishops step back. Play Sente's twelve moves; the other side answers.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal line 7g7f 8c8d 7i6h 3c3d 6g6f 7a6b 5g5f 5c5d 3i4h 3a4b 6i7h 4a3b 4i5h 5a4a 5h6g 6a5b 5i6i 7c7d 6h7g 4b3c 3g3f 4c4d 8h7i 2b3a
+step Into the castle
+text The walls are up; now the king moves in. Bring the bishop out to 4f, then walk the king to 8h. The other side waits.
+position ln3kbnl/1r1sg1g2/p2p2spp/1pp1ppp2/9/2PPP1P2/PPSG1P1PP/2G2S1R1/LNBK3NL b - 1
+goal shape 9/9/9/9/9/9/2SG5/1KG6/9 b - 1
+limit 3
+hint 7i4f
+solution 7i4f 6i7i 7i8h
+
+lesson funa Castle: Boat
+about A quick castle against Ranging Rook
+step Build the Boat
+text The Boat castle (舟囲い) is the quickest: the king steps to 7h and a gold to 5h, the silver and the other gold stay home. It is quick but thin, used when the other side plays Ranging Rook.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal shape 9/9/9/9/9/9/9/2K1G4/2SG5 b - 1
+limit 4
+solution 5i6h 6h7h 4i5h
+
+lesson anaguma Castle: Bear in the hole
+about The king in the corner
+step Build the Anaguma
+text The Bear in the hole (穴熊) tucks the king into the corner behind the lance, with a silver and a gold next to it: the hardest castle to reach with checks, but slow to build. Lift the bishop and the lance first.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal shape 9/9/9/9/9/9/9/LS7/K1G6 b - 1
+limit 11
+hint 7g7f
+solution 7g7f 8h7g 9i9h 5i6h 6h7h 7h8h 8h9i 7i8h 6i7i
+step Ranging Rook Anaguma
+text A Ranging Rook player builds it on the right (振り飛車穴熊): the rook goes to 6h first, then the lance steps up, the king walks to 1i and the silver and the gold close the door.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal shape 9/9/9/9/9/9/9/3R3SL/6G1K b - 1
+limit 8
+hint 2h6h
+solution 2h6h 1i1h 5i4h 4h3h 3h2h 2h1i 3i2h 4i3i
+
+lesson climbing Opening: Climbing Silver
+about Static Rook's direct attack
+step 棒銀
+text The Climbing Silver (棒銀) pushes the rook's pawn and brings the silver up behind it, to break through on the rook's file. Play the moves; the other side answers.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal line 7g7f 3c3d 2g2f 4a3b 2f2e 2b3c 3i3h 7a6b 3h2g 5a4b 2g2f
+
+lesson aigakari Opening: Double Wing Attack
+about Trading the rook's pawn
+step 相掛かり
+text When both sides push their rook's pawns (相掛かり), guard the bishop's head with the gold (7h) before anything else, then trade the rook's pawn: it puts a pawn in your hand. Play the moves; the other side answers.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal line 2g2f 8c8d 2f2e 8d8e 6i7h 4a3b 2e2d 2c2d 2h2d P*2c 2d2h
+
+lesson ishida Opening: Quick Ishida
+about The rook behind the 7th-file pawn
+step 早石田
+text The Quick Ishida (早石田) pushes the 7th-file pawn twice and puts the rook behind it, then castles on the right. Play the moves; the other side answers.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal line 7g7f 3c3d 7f7e 8c8d 2h7h 8d8e 5i4h 7a6b 4h3h 6c6d 3h2h 6b6c 3i3h
+
+lesson ranging Opening: Ranging Rook
+about The rook moves across
+step 四間飛車
+text In Ranging Rook (振り飛車) the rook leaves its file for the other wing; on the 6th file it is the Fourth File Rook (四間飛車). The bishop goes up to 7g, and the king will go right, into a Mino.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal line 7g7f 8c8d 6g6f 8d8e 8h7g 3c3d 2h6h
+
+lesson central Opening: Central Rook
+about The rook on the middle file
+step 中飛車
+text In Central Rook (中飛車) the rook goes to the 5th file, behind the central pawn, to attack in the middle. Play the moves; the other side answers.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal line 7g7f 3c3d 5g5f 8c8d 2h5h 8d8e 8h7g 7a6b
+
+lesson kakugawari Opening: Bishop Exchange
+about Both bishops go to the hands
+step 角換わり
+text In the Bishop Exchange (角換わり) the bishops are traded early, so both sides have one in hand and must guard against its drop. Take the bishop; the other side takes back.
+position lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1
+goal line 7g7f 8c8d 2g2f 3c3d 8h2b+ 3a2b 7i8h
+
+lesson values Piece values
+about What each piece is worth
+step The bigger capture
+text Pieces are worth different amounts; a common count is pawn 1, lance 4, knight 5, silver 7, gold 8, bishop 11 and rook 13, and a promoted rook or bishop more. Captured pieces change sides, so a capture counts twice: one piece less for them, one more for you. The bishop can take the gold or the rook: take the rook.
+position k8/1g5r1/9/9/4B4/9/9/9/8K b - 1
+goal move 5e2b+/5e2b
+step Gold before lance
+text The knight attacks the lance and the gold at once. Take the gold, worth twice as much.
+position k8/9/3l1g3/9/4N4/9/9/9/8K b - 1
+goal move 5e4c+/5e4c
+
+lesson tesuji Tesuji
+about Moves that win material
+step Fork
+text A knight dropped where it attacks two pieces at once (両取り) wins one of them. Drop the knight, then take the gold.
+position 4k4/3r1g3/9/9/9/9/9/9/4K4 b N 1
+goal line N*5d 6b6d 5d4b+/5d4b
+step Dangling pawn
+text A pawn dropped just outside the zone (垂れ歩) threatens to promote next move and is hard to stop. Drop it on 2d, then promote.
+position 4k4/9/p8/9/9/9/9/9/4K4 b P 1
+goal line P*2d 9c9d 2d2c+
+
+chapter Handicaps
+
+lesson twopiece Two-piece handicap
+about Two pawns ahead, then the Crab castle
+step 二枚落ち
+text In a handicap game the stronger player (上手, Gote) takes pieces off and moves first; in the two-piece handicap (二枚落ち) the rook and the bishop. Gote has moved the silver to 6b.
+text The book line for Sente: push the pawns of the fourth and third files to 4e and 3e (二歩突っ切り), trade on 3d for a pawn in hand, put the rook on 3f with the knight behind it, and only then build the Crab castle (カニ囲い). Play Sente's sixteen moves; Gote answers.
+position ln1gkgsnl/3s5/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 2
+goal line 7g7f 5c5d 4g4f 6b5c 4f4e 4a3b 3i4h 5a5b 4h4g 6a6b 3g3f 7c7d 3f3e 3a2b 2h3h 6c6d 3e3d 3c3d 3h3d P*3c 3d3f 5b6c 2i3g 6b7c 6i7h 6d6e 5i6i 7c6d 4i5h 8a7c 7i6h
+
+lesson fourpiece Four-piece handicap
+about The edge Gote has given up
+step 四枚落ち
+text In the four-piece handicap (四枚落ち) Gote also takes off both lances, so the edge is the weak point. The book line opens the bishop, trades the rook's pawn for one in hand, pushes the edge pawn twice and starts the silver up behind it (棒銀), to break through on the first file. Play Sente's nine moves; Gote answers.
+position 1n1gkgsn1/3s5/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 2
+goal line 7g7f 5c5d 2g2f 6b5c 2f2e 4a3b 2e2d 2c2d 2h2d P*2c 2d2h 6a7b 1g1f 7c7d 1f1e 3a2b 3i3h

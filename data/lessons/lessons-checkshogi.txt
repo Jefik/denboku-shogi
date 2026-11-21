@@ -1,0 +1,16 @@
+# The tutorial's lessons for Checkshogi (format: "Lessons" in docs/CODE.md).
+
+chapter Basics
+
+lesson checkshogi Checkshōgi
+about The first check wins
+step Check wins
+text Checkshōgi is shōgi in which the first player to give check wins; no mate is needed, and a dropped pawn may give it. Give check now.
+position 4k4/9/9/9/9/9/9/9/4K4 b P 1
+goal check
+solution P*5b
+step Check from afar
+text A rook or a bishop gives check from far away too, along an open line. Give check with the rook.
+position 4k4/9/9/9/9/9/9/9/K4R3 b - 1
+goal check
+solution 4i5i

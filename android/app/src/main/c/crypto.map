@@ -1,0 +1,4 @@
+OPENSSL_3.0.0 {
+  global: EVP_MD_CTX_new; EVP_MD_CTX_free; EVP_MD_fetch; EVP_DigestInit_ex2; EVP_DigestUpdate; EVP_DigestFinal_ex;
+  local: *;
+};

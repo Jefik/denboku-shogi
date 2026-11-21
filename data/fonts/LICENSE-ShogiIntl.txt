@@ -1,0 +1,6 @@
+ShogiIntl.otf: piece symbols traced from lishogi's intl_monochrome_2d set by
+CouchTomato87 (https://github.com/CouchTomato87/InternationalizedPieces),
+with the kings (OU, GY) from the same author's international set,
+licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+Changes: symbols traced to outlines and mapped to the piece kanji code points
+(tools/build_trace_font.py).

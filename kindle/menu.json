@@ -1,0 +1,12 @@
+{
+	"items": [
+		{
+			"name": "電墨将棋 Denboku Shōgi",
+			"priority": 1,
+			"items": [
+				{ "name": "Play", "action": "./launch.sh", "exitmenu": true },
+				{ "name": "Add shortcut to the library", "action": "/bin/cp", "params": "-f /mnt/us/extensions/denboku/shortcut_denboku.sh /mnt/us/documents/" }
+			]
+		}
+	]
+}

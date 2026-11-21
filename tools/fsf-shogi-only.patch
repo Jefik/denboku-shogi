@@ -1,0 +1,69 @@
+--- a/src/bitboard.cpp
++++ b/src/bitboard.cpp
+@@ -18,6 +18,10 @@
+ 
+ #include <algorithm>
+ #include <bitset>
++#if defined(SHOGI_ONLY) && !defined(_WIN32)
++#include <sys/mman.h>
++#include <unistd.h>
++#endif
+ 
+ #include "bitboard.h"
+ #include "magic.h"
+@@ -377,6 +381,25 @@
+               BetweenBB[s1][s2] |= s2;
+           }
+   }
++
++#if defined(SHOGI_ONLY) && !defined(_WIN32)
++  // Shogi never reads the tables of hoppers and lame leapers (cannons, grasshoppers,
++  // nightriders, xiangqi and janggi elephants and horses): give their pages back.
++  auto release = [](void* p, size_t size) {
++      uintptr_t page = sysconf(_SC_PAGESIZE), start = ((uintptr_t)p + page - 1) & ~(page - 1),
++                end = ((uintptr_t)p + size) & ~(page - 1);
++      if (end > start)
++          madvise((void*)start, end - start, MADV_DONTNEED);
++  };
++  release(CannonTableH, sizeof(CannonTableH));
++  release(CannonTableV, sizeof(CannonTableV));
++  release(JanggiElephantTable, sizeof(JanggiElephantTable));
++  release(CannonDiagTable, sizeof(CannonDiagTable));
++  release(NightriderTable, sizeof(NightriderTable));
++  release(GrasshopperTableH, sizeof(GrasshopperTableH));
++  release(GrasshopperTableV, sizeof(GrasshopperTableV));
++  release(GrasshopperTableD, sizeof(GrasshopperTableD));
++#endif
+ }
+ 
+ namespace {
+--- a/src/pawns.h
++++ b/src/pawns.h
+@@ -61,7 +61,12 @@
+   int blockedCount;
+ };
+ 
++#ifdef SHOGI_ONLY
++// Shogi's pawns change at every drop and rarely repeat a structure: a smaller table (2 MB, not 18 MB) loses nothing.
++typedef HashTable<Entry, 16384> Table;
++#else
+ typedef HashTable<Entry, 131072> Table;
++#endif
+ 
+ Entry* probe(const Position& pos);
+ 
+--- a/src/ucioption.cpp
++++ b/src/ucioption.cpp
+@@ -185,7 +185,12 @@
+ 
+   o["Debug Log File"]        << Option("", on_logger);
+   o["Threads"]               << Option(1, 1, 512, on_threads);
++#ifdef SHOGI_ONLY
++  // The table is allocated and cleared at the start, before any setoption: the game asks for 4 MB.
++  o["Hash"]                  << Option(4, 1, MaxHashMB, on_hash_size);
++#else
+   o["Hash"]                  << Option(16, 1, MaxHashMB, on_hash_size);
++#endif
+   o["Clear Hash"]            << Option(on_clear_hash);
+   o["Ponder"]                << Option(false);
+   o["MultiPV"]               << Option(1, 1, 500);

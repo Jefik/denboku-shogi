@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Denboku Shōgi</string>
+    <string name="online_channel">Network game</string>
+    <string name="online_text">Network game in progress</string>
+</resources>

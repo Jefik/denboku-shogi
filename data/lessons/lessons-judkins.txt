@@ -1,0 +1,25 @@
+# The tutorial's lessons for Judkins shogi (6×6; format: "Lessons" in docs/CODE.md).
+
+chapter Basics
+
+lesson judkins Judkins shōgi
+about Shōgi on 6×6
+step A board of six
+text Judkins shōgi is shōgi on a 6×6 board: a king, a rook, a bishop, a gold, a silver, a knight and a pawn each. Pieces move, capture and drop as in shōgi. Collect the stars with the rook.
+position 6/6/6/6/6/5R b - 1
+goal stars 1c 5c
+limit 2
+solution 1f1c 1c5c
+step Two ranks to promote
+text The promotion zone is the last two ranks. Move the silver into it and promote it.
+position 6/6/3S2/6/6/6 b - 1
+goal move 3c3b+/3c2b+/3c4b+
+step The knight
+text The knight jumps two squares forward and one to the side. On the last two ranks it could never move again, so there it must promote, and it cannot be dropped there. Jump the knight into the zone.
+position 6/6/6/3N2/6/6 b - 1
+goal move 3d2b+/3d4b+
+step Mate
+text Mate the king with a knight drop: the gold covers its way out.
+position 4sk/6/5G/6/6/6 b N 1
+goal mate
+solution N*2c

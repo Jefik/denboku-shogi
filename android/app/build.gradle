@@ -1,0 +1,75 @@
+plugins {
+    id 'com.android.application'
+}
+
+// The native part (the game, Xvfb, GTK and the engine) and runtime.zip come from tools/build-android.sh.
+def staged = file('../../build/android')
+// The release key, kept out of the repository (docs/BUILD.md); without it the APK is signed with the debug key.
+def keyProps = file(System.getenv('DENBOKU_ANDROID_KEY') ?: '../../../denboku-shogi-investigation/keys/android-release.properties')
+// The version from the tag (tools/build.sh): 0.9.1 → versionCode 901 (major × 10000 + minor × 100 + patch).
+def version = System.getenv('DENBOKU_VERSION') ?: ''
+def code = version ? version.tokenize('.').collect { it as int }.with { it[0] * 10000 + it[1] * 100 + it[2] } : 1
+
+android {
+    namespace 'jp.denboku'
+    compileSdk 35
+
+    defaultConfig {
+        // Ten letters, as com.termux: see tools/android-stage.py.
+        applicationId 'jp.denboku'
+        minSdk 24
+        targetSdk 35
+        versionCode code
+        versionName version ?: '0.0.0-dev'
+    }
+
+    signingConfigs {
+        release {
+            if (keyProps.exists()) {
+                def p = new Properties()
+                keyProps.withInputStream { p.load(it) }
+                storeFile new File(keyProps.parentFile, p.storeFile)
+                storePassword p.storePassword
+                keyAlias p.keyAlias
+                keyPassword p.keyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        // tools/build-android.sh builds the debug type (debuggable, so run-as works for tests), signed with the
+        // release key when there is one: an update installs only over an APK with the same key.
+        debug {
+            if (keyProps.exists())
+                signingConfig signingConfigs.release
+        }
+    }
+
+    sourceSets.main {
+        jniLibs.srcDirs = ["$staged/jniLibs"]
+        assets.srcDirs = ["$staged/assets"]
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // One APK per architecture, about half the size of one with both: arm64 for phones, x86_64 for the
+    // emulator and Chromebooks (tools/build-android.sh names them).
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'arm64-v8a', 'x86_64'
+            universalApk false
+        }
+    }
+
+    packaging {
+        jniLibs {
+            // The programs run from the library folder, so they must be unpacked there.
+            useLegacyPackaging = true
+        }
+    }
+}

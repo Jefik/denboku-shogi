@@ -1,0 +1,25 @@
+# The tutorial's lessons for Minishogi (5×5; format: "Lessons" in docs/CODE.md).
+
+chapter Basics
+
+lesson minishogi Minishōgi
+about Shōgi on 5×5
+step A small board
+text Minishōgi is shōgi on a 5×5 board, without knights and lances: a king, a gold, a silver, a bishop, a rook and a pawn each. Pieces move, capture and drop as in shōgi. Collect the stars with the rook.
+position 5/5/5/5/4R b - 1
+goal stars 1b 4b
+limit 2
+solution 1e1b 1b4b
+step One rank to promote
+text The promotion zone is only the last rank. Move the pawn there; it must promote.
+position 5/2P2/5/5/5 b - 1
+goal move 3b3a+
+step Rook and bishop
+text The rook and the bishop promote too, into dragon and horse, as in shōgi. Move the bishop into the last rank and promote it.
+position 5/5/4B/5/5 b - 1
+goal move 1c3a+
+step Mate
+text Mate the king with the gold, guarded by the pawn.
+position 2k2/5/2P2/5/5 b G 1
+goal mate
+solution G*3b

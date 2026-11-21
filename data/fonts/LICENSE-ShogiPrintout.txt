@@ -1,0 +1,22 @@
+ShogiWestern.otf, ShogiCursive.otf, ShogiPrintoutKanji2.otf and the piece colors (Colored pieces)
+
+Traced with tools/build_trace_font.py from the "uniform_western" SVG pieces of
+"Western Shogi Printout-Set" by peanatsu, https://github.com/peanatsu/shogi_printout
+(release v1.0, svgsrc_and_xboard.tar.gz); the piece bodies were left out.
+
+Licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license:
+https://creativecommons.org/licenses/by-sa/3.0/
+
+The chess images in that set come from Wikimedia Commons, under the same license:
+- king, rook, bishop, knight: Colin M.L. Burnett
+- pawn: NikNaks
+- lance: Orror/Zigeuner
+- promoted rook, bishop, silver, knight and lance: Hari Seldon
+
+ShogiCursive.otf: the cursive promoted pieces of the "2kanji" xboard tiles (Hari Seldon).
+ShogiPrintoutKanji2.otf: the unpromoted pieces of the "2kanji" xboard tiles; their kanji are
+AR PL UKai CN glyphs, (c) 1999 Arphic Technology Co., Ltd., so this font is also under the
+Arphic Public License (ARPHICPL.TXT).
+
+Changes (2026-11-08 and 2026-11-09): the symbols were traced into fonts, one glyph per piece
+at its 1-kanji code point (--printout 1 and --xboard 1); the piece shape is the game's own.

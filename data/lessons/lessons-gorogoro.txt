@@ -1,0 +1,22 @@
+# The tutorial's lessons for Goro Goro (5×6; format: "Lessons" in docs/CODE.md).
+
+chapter Basics
+
+lesson goro Goro Goro
+about The beginners' shōgi on 5×6
+step A small board
+text Goro Goro is the shōgi the Japan Shōgi Association teaches children with: a 5×6 board with a king, two golds, two silvers and three pawns each. They move as in shōgi.
+text Collect the stars with the silver.
+position 5/5/5/5/2S2/5 b - 1
+goal stars 3d 2c 3b
+limit 3
+solution 3e3d 3d2c 2c3b
+step Promotion
+text Here the promotion zone is the last two ranks. Move the pawn into it and promote it: it then moves like a gold.
+position 5/5/2P2/5/5/5 b - 1
+goal move 3c3b+
+step Mate
+text Drops, 二歩 and 打ち歩詰め work as in shōgi. Mate the king with the gold, guarded by the pawn.
+position 2k2/5/2P2/5/5/5 b G 1
+goal mate
+solution G*3b
