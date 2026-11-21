@@ -51,6 +51,14 @@ Get the file for your device from the [latest release](https://github.com/Jefik/
 
 The game can check GitHub for new versions and update itself (the Flatpak does not yet); it asks the first time. See [`docs/INSTALL.md`](docs/INSTALL.md) for more on each platform and [`docs/MANUAL.md`](docs/MANUAL.md) for how to play.
 
+## Code signing policy
+
+Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org). The Windows files are built from this repository by GitHub Actions and signed only after a release is approved.
+
+Committers, reviewers and approvers: [Jefik](https://github.com/Jefik).
+
+Privacy: the game collects no data and sends nothing about you. It goes online only when you ask it to: to check for new versions (after asking you the first time), to play on Lishogi or a CSA server, and to play over the local network.
+
 ## Build from source
 
 C11 and GTK 2. The submodules (curl, mbed TLS, gdk-pixbuf) are only needed for the Android and Windows packages:
